@@ -1028,6 +1028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1567162486400309797}
   - component: {fileID: 8163790388198760028}
+  - component: {fileID: 9215053590814058568}
   m_Layer: 0
   m_Name: Thumper
   m_TagString: Untagged
@@ -1044,7 +1045,7 @@ Transform:
   m_GameObject: {fileID: 7358775646448846433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.60688, y: -0, z: -0.591}
+  m_LocalPosition: {x: 9.60688, y: 1.984, z: -0.591}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1074,6 +1075,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &9215053590814058568
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7358775646448846433}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7718150012576596134
 GameObject:
   m_ObjectHideFlags: 0
