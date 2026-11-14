@@ -26,6 +26,7 @@ namespace LethalCompanyAI
         [Header("Damage From Monster Events")]
         [Min(0)] public int brackenDamage = 100;
         [Min(0)] public int nutcrackerShotDamage = 45;
+        [Min(0)] public int nutcrackerMeleeDamage = 35;
 
         [Header("Contact Damage")]
         [Tooltip("Coil-Head, Eyeless Dog, and Thumper have no attack UnityEvent in the existing FSM scripts, so contact is checked here.")]
@@ -47,6 +48,7 @@ namespace LethalCompanyAI
         private readonly HashSet<MonsterController> registeredMonsters = new HashSet<MonsterController>();
         private readonly Dictionary<MonsterController, UnityAction> brackenHandlers = new Dictionary<MonsterController, UnityAction>();
         private readonly Dictionary<MonsterController, UnityAction> nutcrackerHandlers = new Dictionary<MonsterController, UnityAction>();
+        private readonly Dictionary<MonsterController, UnityAction> nutcrackerMeleeHandlers = new Dictionary<MonsterController, UnityAction>();
         private readonly Dictionary<MonsterController, float> nextContactDamageTime = new Dictionary<MonsterController, float>();
 
         private float playerSearchTimer;
@@ -174,9 +176,14 @@ namespace LethalCompanyAI
             }
             else if (monster.enemyType == MonsterType.Nutcracker)
             {
-                UnityAction handler = delegate { DamagePlayer(nutcrackerShotDamage, "Nutcracker"); };
-                monster.onNutcrackerShot.AddListener(handler);
-                nutcrackerHandlers.Add(monster, handler);
+                // Shot event is invoked by NutcrackerProjectile only when a bullet hits the player.
+                UnityAction shotHandler = delegate { DamagePlayer(nutcrackerShotDamage, "Nutcracker shotgun"); };
+                monster.onNutcrackerShot.AddListener(shotHandler);
+                nutcrackerHandlers.Add(monster, shotHandler);
+
+                UnityAction meleeHandler = delegate { DamagePlayer(nutcrackerMeleeDamage, "Nutcracker melee"); };
+                monster.onNutcrackerMelee.AddListener(meleeHandler);
+                nutcrackerMeleeHandlers.Add(monster, meleeHandler);
             }
         }
 
@@ -297,6 +304,12 @@ namespace LethalCompanyAI
             {
                 if (pair.Key != null)
                     pair.Key.onNutcrackerShot.RemoveListener(pair.Value);
+            }
+
+            foreach (KeyValuePair<MonsterController, UnityAction> pair in nutcrackerMeleeHandlers)
+            {
+                if (pair.Key != null)
+                    pair.Key.onNutcrackerMelee.RemoveListener(pair.Value);
             }
 
             if (pauseGameOnPlayerDeath && gameOver)

@@ -36,11 +36,19 @@ namespace LethalCompanyAI.Nutcracker
             float yaw = settings.nutcrackerScanAngle * progress;
             npc.transform.rotation = startRotation * Quaternion.Euler(0f, yaw, 0f);
 
-            if (player != null && Vector3.Distance(npc.transform.position, player.position) <= settings.nutcrackerShootingRange &&
-                settings.CanSeePlayer() && settings.IsPlayerMoving(settings.nutcrackerMovementThreshold))
+            if (player != null && settings.CanSeePlayer())
             {
-                TransitionTo(new Shooting(npc, agent, animator, player));
-                return;
+                bool playerCloseEnoughForMelee = settings.IsPlayerWithinNutcrackerMeleeRange();
+                bool playerVisibleForShot =
+                    Vector3.Distance(npc.transform.position, player.position) <= settings.nutcrackerShootingRange &&
+                    settings.IsPlayerMoving(settings.nutcrackerMovementThreshold);
+
+                // A nearby player can trigger a kick even when standing still.
+                if (playerCloseEnoughForMelee || playerVisibleForShot)
+                {
+                    TransitionTo(new Shooting(npc, agent, animator, player));
+                    return;
+                }
             }
 
             if (scanTimer >= settings.nutcrackerScanDuration)

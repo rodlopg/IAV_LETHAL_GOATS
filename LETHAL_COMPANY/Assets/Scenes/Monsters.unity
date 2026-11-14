@@ -26631,6 +26631,7 @@ MonoBehaviour:
   additionalMonsters: []
   brackenDamage: 100
   nutcrackerShotDamage: 45
+  nutcrackerMeleeDamage: 35
   enableContactDamage: 1
   contactDamageDistance: 1.45
   contactDamageCooldown: 1
@@ -30061,6 +30062,7 @@ GameObject:
   - component: {fileID: 1071627972}
   - component: {fileID: 1071627971}
   - component: {fileID: 1071627975}
+  - component: {fileID: 1071627976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -30156,13 +30158,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071627970}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.101, y: 0.81, z: 15.25}
+  m_LocalRotation: {x: -0, y: -0.76282763, z: -0, w: -0.646602}
+  m_LocalPosition: {x: 8.893, y: 0.81, z: 13.863}
   m_LocalScale: {x: 0.5707111, y: 0.5707111, z: 0.5707111}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1402377308}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -260.572, z: 0}
 --- !u!114 &1071627975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30175,8 +30178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71742fb2bc613e149b16ebcc76a8aa6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LethalCompanyAI.PlayerMonsterIntegration
-  viewTransform: {fileID: 0}
-  viewCamera: {fileID: 0}
+  viewTransform: {fileID: 1402377308}
+  viewCamera: {fileID: 1402377307}
   walkingSpeedThreshold: 0.15
   runningSpeedThreshold: 4
   walkingStepInterval: 0.65
@@ -30193,6 +30196,18 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1071627976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071627970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e362bb51bb6f97429b317a666a03f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ManualNoiseTrigger
 --- !u!1 &1072396594
 GameObject:
   m_ObjectHideFlags: 0
@@ -38067,12 +38082,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402377304}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29816884, y: 0.32434577, z: -0.108524576, w: 0.8911328}
-  m_LocalPosition: {x: -3, y: 13.5, z: -7}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.75344604, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1071627974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1406992467
 PrefabInstance:
@@ -56263,7 +56278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7358775646448846433, guid: a319dccc62033a2499bdcbe6136e0cfb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8163790388198760028, guid: a319dccc62033a2499bdcbe6136e0cfb, type: 3}
       propertyPath: m_Controller
@@ -56311,7 +56326,7 @@ MonoBehaviour:
   enemyType: 3
   playerTag: Player
   playerView: {fileID: 1402377308}
-  viewDistance: 18
+  viewDistance: 10
   fieldOfView: 100
   eyeHeight: 1.4
   playerTargetHeight: 1
@@ -56359,16 +56374,27 @@ MonoBehaviour:
   dogChargeMaxSpeed: 16
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 22
-  nutcrackerScanInterval: 11
-  nutcrackerScanDuration: 3
-  nutcrackerScanAngle: 140
-  nutcrackerScanTurnSpeed: 2
+  nutcrackerScanInterval: 6
+  nutcrackerScanDuration: 10
+  nutcrackerScanAngle: 280
+  nutcrackerScanTurnSpeed: 3
   nutcrackerMovementThreshold: 0.15
-  nutcrackerShootingRange: 5
+  nutcrackerShootingRange: 10
   nutcrackerShotsPerBurst: 2
   nutcrackerFireInterval: 0.55
-  nutcrackerReloadDuration: 1.8
+  nutcrackerReloadDuration: 5
+  nutcrackerFirePoint: {fileID: 0}
+  nutcrackerProjectilePrefab: {fileID: 0}
+  nutcrackerProjectileSpeed: 32
+  nutcrackerProjectileLifetime: 4
+  nutcrackerMeleeRange: 1.8
+  nutcrackerMeleeHitDelay: 0.22
+  nutcrackerMeleeDuration: 0.75
+  nutcrackerMeleeCooldown: 1.1
   onNutcrackerShot:
+    m_PersistentCalls:
+      m_Calls: []
+  onNutcrackerMelee:
     m_PersistentCalls:
       m_Calls: []
   thumperFieldOfView: 55
@@ -56406,7 +56432,7 @@ MonoBehaviour:
   enemyType: 1
   playerTag: Player
   playerView: {fileID: 1402377308}
-  viewDistance: 3.5
+  viewDistance: 7
   fieldOfView: 100
   eyeHeight: 1.4
   playerTargetHeight: 1
@@ -56445,8 +56471,8 @@ MonoBehaviour:
       m_Calls: []
   coilLookAngle: 30
   coilPursuitSpeed: 12
-  coilChaseDuration: 8
-  coilRechargeDuration: 3
+  coilChaseDuration: 2
+  coilRechargeDuration: 10
   dogHearingThreshold: 0.2
   dogChargeLoudnessThreshold: 0.75
   dogNoiseMemoryDuration: 8
@@ -56466,7 +56492,18 @@ MonoBehaviour:
   nutcrackerShotsPerBurst: 2
   nutcrackerFireInterval: 0.55
   nutcrackerReloadDuration: 1.8
+  nutcrackerFirePoint: {fileID: 0}
+  nutcrackerProjectilePrefab: {fileID: 0}
+  nutcrackerProjectileSpeed: 32
+  nutcrackerProjectileLifetime: 4
+  nutcrackerMeleeRange: 1.8
+  nutcrackerMeleeHitDelay: 0.22
+  nutcrackerMeleeDuration: 0.75
+  nutcrackerMeleeCooldown: 1.1
   onNutcrackerShot:
+    m_PersistentCalls:
+      m_Calls: []
+  onNutcrackerMelee:
     m_PersistentCalls:
       m_Calls: []
   thumperFieldOfView: 55
@@ -56618,7 +56655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1026496341630529783, guid: 9f30456623022174ca19caa508613cc0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8006921317834557234, guid: 9f30456623022174ca19caa508613cc0, type: 3}
       propertyPath: m_Height
@@ -56697,13 +56734,17 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.44
       objectReference: {fileID: 0}
+    - target: {fileID: 2094525297022496126, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2bbfaa1fac9babe49888764a6b8143bf, type: 2}
     - target: {fileID: 3389722352509845903, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
       propertyPath: m_Name
       value: EyelessDog
       objectReference: {fileID: 0}
     - target: {fileID: 3389722352509845903, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8008051257257211170, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
       propertyPath: m_Controller
@@ -56796,7 +56837,18 @@ MonoBehaviour:
   nutcrackerShotsPerBurst: 2
   nutcrackerFireInterval: 0.55
   nutcrackerReloadDuration: 1.8
+  nutcrackerFirePoint: {fileID: 0}
+  nutcrackerProjectilePrefab: {fileID: 0}
+  nutcrackerProjectileSpeed: 32
+  nutcrackerProjectileLifetime: 4
+  nutcrackerMeleeRange: 1.8
+  nutcrackerMeleeHitDelay: 0.22
+  nutcrackerMeleeDuration: 0.75
+  nutcrackerMeleeCooldown: 1.1
   onNutcrackerShot:
+    m_PersistentCalls:
+      m_Calls: []
+  onNutcrackerMelee:
     m_PersistentCalls:
       m_Calls: []
   thumperFieldOfView: 55
@@ -56888,7 +56940,18 @@ MonoBehaviour:
   nutcrackerShotsPerBurst: 2
   nutcrackerFireInterval: 0.55
   nutcrackerReloadDuration: 1.8
+  nutcrackerFirePoint: {fileID: 0}
+  nutcrackerProjectilePrefab: {fileID: 0}
+  nutcrackerProjectileSpeed: 32
+  nutcrackerProjectileLifetime: 4
+  nutcrackerMeleeRange: 1.8
+  nutcrackerMeleeHitDelay: 0.22
+  nutcrackerMeleeDuration: 0.75
+  nutcrackerMeleeCooldown: 1.1
   onNutcrackerShot:
+    m_PersistentCalls:
+      m_Calls: []
+  onNutcrackerMelee:
     m_PersistentCalls:
       m_Calls: []
   thumperFieldOfView: 36.6
@@ -56975,7 +57038,18 @@ MonoBehaviour:
   nutcrackerShotsPerBurst: 2
   nutcrackerFireInterval: 0.55
   nutcrackerReloadDuration: 1.8
+  nutcrackerFirePoint: {fileID: 0}
+  nutcrackerProjectilePrefab: {fileID: 0}
+  nutcrackerProjectileSpeed: 32
+  nutcrackerProjectileLifetime: 4
+  nutcrackerMeleeRange: 1.8
+  nutcrackerMeleeHitDelay: 0.22
+  nutcrackerMeleeDuration: 0.75
+  nutcrackerMeleeCooldown: 1.1
   onNutcrackerShot:
+    m_PersistentCalls:
+      m_Calls: []
+  onNutcrackerMelee:
     m_PersistentCalls:
       m_Calls: []
   thumperFieldOfView: 55
@@ -57002,7 +57076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 23818709682084552, guid: 0327df3676436744eb26f70ce4a4b952, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3455205192564316284, guid: 0327df3676436744eb26f70ce4a4b952, type: 3}
       propertyPath: m_Controller
@@ -57064,7 +57138,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1402377308}
   - {fileID: 251633587}
   - {fileID: 195409816}
   - {fileID: 508386415}
