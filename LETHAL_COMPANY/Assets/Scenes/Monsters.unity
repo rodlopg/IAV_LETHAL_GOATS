@@ -56278,7 +56278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7358775646448846433, guid: a319dccc62033a2499bdcbe6136e0cfb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8163790388198760028, guid: a319dccc62033a2499bdcbe6136e0cfb, type: 3}
       propertyPath: m_Controller
@@ -56374,6 +56374,8 @@ MonoBehaviour:
   dogChargeMaxSpeed: 16
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 22
+  nutcrackerDetectionFov: 55
+  nutcrackerRequireMovementToShoot: 1
   nutcrackerScanInterval: 6
   nutcrackerScanDuration: 10
   nutcrackerScanAngle: 280
@@ -56483,6 +56485,8 @@ MonoBehaviour:
   dogChargeMaxSpeed: 16
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 22
+  nutcrackerDetectionFov: 55
+  nutcrackerRequireMovementToShoot: 1
   nutcrackerScanInterval: 5
   nutcrackerScanDuration: 3
   nutcrackerScanAngle: 140
@@ -56655,7 +56659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1026496341630529783, guid: 9f30456623022174ca19caa508613cc0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8006921317834557234, guid: 9f30456623022174ca19caa508613cc0, type: 3}
       propertyPath: m_Height
@@ -56744,7 +56748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3389722352509845903, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8008051257257211170, guid: dbf90e32905aea040b6d468bb00ccc65, type: 3}
       propertyPath: m_Controller
@@ -56828,6 +56832,8 @@ MonoBehaviour:
   dogChargeMaxSpeed: 16
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 22
+  nutcrackerDetectionFov: 55
+  nutcrackerRequireMovementToShoot: 1
   nutcrackerScanInterval: 5
   nutcrackerScanDuration: 3
   nutcrackerScanAngle: 140
@@ -56931,6 +56937,8 @@ MonoBehaviour:
   dogChargeMaxSpeed: 16
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 22
+  nutcrackerDetectionFov: 55
+  nutcrackerRequireMovementToShoot: 1
   nutcrackerScanInterval: 5
   nutcrackerScanDuration: 3
   nutcrackerScanAngle: 140
@@ -57029,6 +57037,8 @@ MonoBehaviour:
   dogChargeMaxSpeed: 3
   dogChargeMaxDuration: 3.5
   dogChargeMaxDistance: 5
+  nutcrackerDetectionFov: 55
+  nutcrackerRequireMovementToShoot: 1
   nutcrackerScanInterval: 5
   nutcrackerScanDuration: 3
   nutcrackerScanAngle: 140
@@ -57076,7 +57086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 23818709682084552, guid: 0327df3676436744eb26f70ce4a4b952, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3455205192564316284, guid: 0327df3676436744eb26f70ce4a4b952, type: 3}
       propertyPath: m_Controller
