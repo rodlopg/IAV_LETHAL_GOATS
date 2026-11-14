@@ -20,38 +20,59 @@ namespace LethalCompanyAI.Nutcracker
             SetTrigger("isScanning");
             scanTimer = 0f;
             startRotation = npc.transform.rotation;
+
             if (AgentReady())
             {
                 agent.isStopped = true;
                 agent.ResetPath();
             }
+
             stage = EVENT.UPDATE;
         }
 
         public override void Update()
         {
-            scanTimer += Time.deltaTime;
-            float progress = settings.nutcrackerScanDuration <= 0f ? 1f :
-                Mathf.Clamp01(scanTimer / settings.nutcrackerScanDuration);
-            float yaw = settings.nutcrackerScanAngle * progress;
-            npc.transform.rotation = startRotation * Quaternion.Euler(0f, yaw, 0f);
-
-            if (player != null && settings.CanSeePlayer())
+            if (player == null)
             {
-                bool playerCloseEnoughForMelee = settings.IsPlayerWithinNutcrackerMeleeRange();
-                bool playerVisibleForShot =
-                    Vector3.Distance(npc.transform.position, player.position) <= settings.nutcrackerShootingRange &&
-                    settings.IsPlayerMoving(settings.nutcrackerMovementThreshold);
-
-                // A nearby player can trigger a kick even when standing still.
-                if (playerCloseEnoughForMelee || playerVisibleForShot)
-                {
-                    TransitionTo(new Shooting(npc, agent, animator, player));
-                    return;
-                }
+                TransitionTo(new Wandering(npc, agent, animator, player));
+                return;
             }
 
-            if (scanTimer >= settings.nutcrackerScanDuration)
+            scanTimer += Time.deltaTime;
+
+            // Sweep from -half angle to +half angle, rather than rotating only one way.
+            float duration = Mathf.Max(0.1f, settings.nutcrackerScanDuration);
+            float progress = Mathf.Clamp01(scanTimer / duration);
+            float halfAngle = settings.nutcrackerScanAngle * 0.5f;
+            float yaw = Mathf.Lerp(-halfAngle, halfAngle, progress);
+
+            npc.transform.rotation =
+                startRotation * Quaternion.Euler(0f, yaw, 0f);
+
+            // A close player gets the separate melee attack.
+            if (settings.IsPlayerWithinNutcrackerMeleeRange())
+            {
+                TransitionTo(new Shooting(npc, agent, animator, player));
+                return;
+            }
+
+            // Ranged detection uses the Nutcracker's own range and detection FOV,
+            // not the generic MonsterController vision distance/FOV.
+            bool playerVisible = settings.CanNutcrackerSeePlayer(
+                settings.nutcrackerDetectionFov
+            );
+
+            bool playerMoving =
+                settings.IsPlayerMoving(settings.nutcrackerMovementThreshold);
+
+            if (playerVisible &&
+                (!settings.nutcrackerRequireMovementToShoot || playerMoving))
+            {
+                TransitionTo(new Shooting(npc, agent, animator, player));
+                return;
+            }
+
+            if (scanTimer >= duration)
                 TransitionTo(new Wandering(npc, agent, animator, player));
         }
 

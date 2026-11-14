@@ -83,6 +83,9 @@ namespace LethalCompanyAI
         public float dogChargeMaxDistance = 22f;
 
         [Header("Nutcracker")]
+        [Range(5f, 160f)]
+        public float nutcrackerDetectionFov = 55f;
+        public bool nutcrackerRequireMovementToShoot = true;
         public float nutcrackerScanInterval = 5f;
         public float nutcrackerScanDuration = 3f;
         public float nutcrackerScanAngle = 140f;
@@ -198,6 +201,25 @@ namespace LethalCompanyAI
                 agent.velocity = Vector3.zero;
                 agent.nextPosition = coilHeadFrozenPosition;
             }
+        }
+
+        public bool CanNutcrackerSeePlayer(float fov)
+        {
+            if (player == null)
+                return false;
+
+            Vector3 origin = transform.position + Vector3.up * eyeHeight;
+            Vector3 target = player.position + Vector3.up * playerTargetHeight;
+            Vector3 toPlayer = target - origin;
+            float distance = toPlayer.magnitude;
+
+            if (distance <= 0.01f || distance > nutcrackerShootingRange)
+                return false;
+
+            if (Vector3.Angle(transform.forward, toPlayer) > fov * 0.5f)
+                return false;
+
+            return HasClearPath(origin, target, player);
         }
 
         public void SetCoilHeadFrozen(bool freeze)
